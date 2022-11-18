@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+gitcommands.txt
+./gitcommands.txt
+
 # production
 /build
 
