@@ -4,9 +4,16 @@ import Author from "./_child/Author";
 import SwiperCore,{Autoplay} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-
+import fetcher from "../lib/fetcher";
+import Spinner from "./_child/Spinner";
+import Error from "./_child/Error";
 
 const Section1 = () => {
+  const {data , isLoading , isError} = fetcher('api/trending')
+  if(isLoading) return <Spinner />
+  if(isError) return <Error />
+
+
     SwiperCore.use([Autoplay]);
     const bg = {
         background:"url('/images/banner.png') no-repeat",
@@ -24,10 +31,12 @@ const Section1 = () => {
             delay:2000
         }}
     >
-      <SwiperSlide> {Slide()}</SwiperSlide>
-      <SwiperSlide> {Slide()}</SwiperSlide>
-      <SwiperSlide> {Slide()}</SwiperSlide>
-      <SwiperSlide> {Slide()}</SwiperSlide>
+      {
+    data.map((value,index)=>(
+      <SwiperSlide key={index}><Slide data={value}></Slide></SwiperSlide>
+    ))
+      }
+   
 
     </Swiper>
 
@@ -37,13 +46,16 @@ const Section1 = () => {
   );
 };
 
-function Slide() {
+function Slide({data}) {
+
+  const {id,category,description ,title,img,published,author} = data;
+
   return (
     <div className="grid md:grid-cols-2">
       <div className="image">
         <Link href={"/"}>
           <a>
-            <Image src={"/images/img1.jpg"} width={600} height={600} />
+            <Image src={img || "/"} width={600} height={600} />
           </a>
         </Link>
       </div>
@@ -51,30 +63,29 @@ function Slide() {
         <div className="cat">
           <Link href={"/"}>
             <a className="text-orange-600 hover:text-orange-800">
-              Business,Travel
+              {category||"unknown"}
             </a>
           </Link>
           <Link href={"/"}>
             <a className="text-gray-600 hover:text-gray-800">
-              - November 22, 2022
+              - {published ||"unknown"}
             </a>
           </Link>
         </div>
         <div className="title">
           <Link href={"/"}>
             <a className="text-3xl md:text-6xl py-2 font-bold text-gray-800 hover:text-gray-600">
-              Your most unhappy customers are your greatest source of learning
+              {title || "unknown"}
             </a>
           </Link>
         </div>
         <p className="text-gray-500 py-4">
-          {" "}
-          Even the all-powerful Pointing has no control about the blind texts it
-          is an almost unorthographic life One day however a small line of blind
-          text by the name of Lorem Ipsum decided to leave for the far World of
-          Grammar.
+        {description || "unknown"}   
         </p>
-        <Author></Author>
+        {
+          author ?  <Author></Author> : <></>
+         
+        }
       </div>
     </div>
   );
