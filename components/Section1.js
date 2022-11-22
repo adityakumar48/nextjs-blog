@@ -9,7 +9,7 @@ import 'swiper/css';
 const Section1 = () => {
     SwiperCore.use([Autoplay]);
     const bg = {
-        background:"url('/images/banner.png') no-repeat;",
+        background:"url('/images/banner.png') no-repeat",
         backgroundPosition:"right", 
     }
   return (
@@ -29,7 +29,6 @@ const Section1 = () => {
       <SwiperSlide> {Slide()}</SwiperSlide>
       <SwiperSlide> {Slide()}</SwiperSlide>
 
-      ...
     </Swiper>
 
        
