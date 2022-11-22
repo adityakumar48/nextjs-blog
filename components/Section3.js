@@ -16,7 +16,14 @@ const Section3 = () => {
 
       {/* Swiper */}
 
-      <Swiper slidesPerView={2}>
+      <Swiper 
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 30,
+          },
+        }}
+      >
 
       {
     data.map((value,index)=>(
@@ -35,7 +42,7 @@ function Post({data}) {
   return (
     <div className="grid">
       <div className="images">
-        <Link href={"/"}>
+        <Link href={`/posts/${id}`}>
           <a>
             <Image src={img || "/"} width={600} height={400} />
           </a>
@@ -43,19 +50,19 @@ function Post({data}) {
       </div>
       <div className="info flex justify-center flex-col py-4">
         <div className="cat">
-          <Link href={"/"}>
+          <Link href={`/posts/${id}`}>
             <a className="text-orange-600 hover:text-orange-800">
               {category||"unknown"}
             </a>
           </Link>
-          <Link href={"/"}>
+          <Link href={`/posts/${id}`}>
             <a className="text-gray-600 hover:text-gray-800">
               - {published ||"unknown"}
             </a>
           </Link>
         </div>
         <div className="title">
-          <Link href={"/"}>
+          <Link href={`/posts/${id}`}>
             <a className="text-3xl md:text-4xl py-3 font-bold text-gray-800 hover:text-gray-600">
               {title || "unknown"}
             </a>
@@ -65,7 +72,7 @@ function Post({data}) {
        {description || "Unknown"}
         </p>
         {
-          author ?  <Author></Author> : <></>
+          author ?  <Author {...author}></Author> : <></>
          
         }
       </div>

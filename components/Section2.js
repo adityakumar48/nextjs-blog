@@ -31,7 +31,7 @@ function Post({data}) {
   return (
     <div className="item">
       <div className="images">
-        <Link href={"/"}>
+        <Link href={`/posts/${id}`}>
           <a>
             <Image
               src={img || "/"}
@@ -44,19 +44,19 @@ function Post({data}) {
       </div>
       <div className="info flex justify-center flex-col py-4">
         <div className="cat">
-          <Link href={"/"}>
+          <Link href={`/posts/${id}`}>
             <a className="text-orange-600 hover:text-orange-800">
               {category||"unknown"}
             </a>
           </Link>
-          <Link href={"/"}>
+          <Link href={`/posts/${id}`}>
             <a className="text-gray-600 hover:text-gray-800">
              - {published ||"unknown"}
             </a>
           </Link>
         </div>
         <div className="title">
-          <Link href={"/"}>
+          <Link href={`/posts/${id}`}>
             <a className="text-xl py-3 font-bold text-gray-800 hover:text-gray-600">
               {title ||"Title"}
             </a>
@@ -70,7 +70,7 @@ function Post({data}) {
           Grammar.
         </p>
         {
-          author ?  <Author></Author> : <></>
+          author ?  <Author {...author}></Author> : <></>
          
         }
       </div>
